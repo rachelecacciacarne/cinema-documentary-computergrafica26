@@ -1,0 +1,348 @@
+:root {
+  --font-titoli: 'Playfair Display', Georgia, serif;
+  --font-testi: 'Lora', Georgia, serif;
+}
+
+.cinema-hall {
+  position: relative;
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 15%, #1e191a 0%, #090809 75%);
+  color: #f3efe6;
+  font-family: var(--font-testi);
+  padding-bottom: 230px;
+  overflow-x: hidden;
+}
+
+.projector-beam {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90vw;
+  height: 60vh;
+  background: radial-gradient(ellipse at top, rgba(255, 244, 214, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cinema-screen {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* Scelta percorso */
+.path-selector {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.path-intro {
+  color: #b8b0a2;
+  font-size: 0.95rem;
+}
+
+.path-selector button {
+  background: transparent;
+  color: #e6dfd3;
+  border: 1px solid rgba(230, 223, 211, 0.25);
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  font-family: var(--font-testi);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.path-selector button:hover {
+  border-color: #d4af37;
+  color: #fff;
+}
+
+.path-selector button.active {
+  background: #8b1e24;
+  border-color: #b92b33;
+  color: #fff;
+}
+
+/* 1. Intestazione periodo in alto */
+.period-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 1.5rem auto;
+}
+
+.period-years-tag {
+  color: #f5d061;
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.period-header h2 {
+  font-family: var(--font-titoli);
+  font-size: 2.1rem;
+  font-weight: normal;
+  margin: 0 0 0.6rem 0;
+  color: #fffdf9;
+}
+
+.period-header p {
+  color: #c7bfb2;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 2. LINEA DELLA TIMELINE CON PALLINI E FRECCE */
+.timeline-bar-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 2rem 0 3rem 0;
+}
+
+.btn-timeline-arrow {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f3efe6;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.btn-timeline-arrow:hover:not(:disabled) {
+  background: #8b1e24;
+  border-color: #f5d061;
+}
+
+.btn-timeline-arrow:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.timeline-track {
+  position: relative;
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.timeline-horizontal-line {
+  position: absolute;
+  top: 15px;
+  left: 6%;
+  right: 6%;
+  height: 2px;
+  background: rgba(245, 208, 97, 0.35);
+  z-index: 0;
+}
+
+.timeline-node {
+  position: relative;
+  z-index: 1;
+  background: none;
+  border: none;
+  color: #a39b8e;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.node-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #141212;
+  border: 2px solid #8c8275;
+  transition: all 0.25s ease;
+}
+
+.timeline-node.active .node-dot {
+  background: #f5d061;
+  border-color: #fff;
+  transform: scale(1.35);
+  box-shadow: 0 0 14px rgba(245, 208, 97, 0.85);
+}
+
+.timeline-node.active .node-label {
+  color: #f5d061;
+  font-weight: bold;
+}
+
+.node-label {
+  font-size: 0.9rem;
+}
+
+/* 3. LA TUA PELLICOLA CON I FOTOGRAMMI */
+.film-strip-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.film-cell {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  padding: 1.8rem 4.5rem; /* Spazio per far vedere i fori laterali della tua pellicola */
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.film-cell:hover {
+  transform: scale(1.015);
+}
+
+.film-cell.active {
+  filter: drop-shadow(0 0 24px rgba(245, 208, 97, 0.25));
+}
+
+.film-overlay-texture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.film-cell-inner {
+  position: relative;
+  z-index: 1;
+  background: #191616;
+  padding: 1rem;
+}
+
+.scene-photo {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 0.9rem;
+}
+
+.scene-year {
+  font-size: 0.85rem;
+  color: #e0b84c;
+}
+
+.scene-caption h3 {
+  font-family: var(--font-titoli);
+  font-size: 1.35rem;
+  font-weight: normal;
+  margin: 0.25rem 0 0.5rem 0;
+  color: #ffffff;
+}
+
+.scene-caption p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #d6cfc3;
+  margin: 0;
+}
+
+button:focus-visible,
+.film-cell:focus-visible {
+  outline: 2px solid #f5d061;
+  outline-offset: 4px;
+}
+
+/* SECCHIELLO E POPCORN */
+.popcorn-corner {
+  position: fixed;
+  bottom: 25px;
+  right: 30px;
+  width: 120px;
+  height: 140px;
+  z-index: 20;
+  cursor: pointer;
+}
+
+.popcorn-bucket {
+  position: relative;
+  width: 100%;
+  height: auto;
+  z-index: 3;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.8));
+}
+
+.popcorn-resting {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  z-index: 2;
+  transition: transform 0.2s ease-out;
+}
+
+.popcorn-resting.p1 { top: -18px; left: 10px; }
+.popcorn-resting.p2 { top: -24px; left: 40px; }
+.popcorn-resting.p3 { top: -15px; right: 10px; }
+
+.popcorn-particle {
+  position: absolute;
+  top: 0;
+  left: 40px;
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  z-index: 4;
+  pointer-events: none;
+  animation: popcornPop 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes popcornPop {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.5) rotate(0deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(var(--tx), var(--ty)) scale(1.1) rotate(var(--rot));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--tx) * 1.2), calc(var(--ty) + 60px)) scale(0.8) rotate(calc(var(--rot) * 1.5));
+  }
+}
+
+/* POLTRONE ROSSE IN PRIMO PIANO */
+.cinema-seats-foreground {
+  position: fixed;
+  bottom: -15px;
+  left: 0;
+  width: 100%;
+  z-index: 15;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+}
+
+.cinema-seats-foreground canvas {
+  width: 100%;
+  max-width: 1400px;
+  max-height: 220px;
+  object-fit: cover;
+  object-position: top center;
+  filter: brightness(0.8) drop-shadow(0 -10px 25px rgba(0, 0, 0, 0.9));
+}
